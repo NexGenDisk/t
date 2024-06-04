@@ -11,12 +11,12 @@ import (
 	"github.com/rs/zerolog/log"
 	"github.com/spf13/viper"
 
-	dp "github.com/forscht/ddrv/internal/dataprovider"
-	"github.com/forscht/ddrv/internal/dataprovider/boltdb"
-	"github.com/forscht/ddrv/internal/dataprovider/postgres"
-	"github.com/forscht/ddrv/internal/ftp"
-	"github.com/forscht/ddrv/internal/http"
-	"github.com/forscht/ddrv/pkg/ddrv"
+	dp "github.com/NexGenDisk/t/internal/dataprovider"
+	"github.com/NexGenDisk/t/internal/dataprovider/boltdb"
+	"github.com/NexGenDisk/t/internal/dataprovider/postgres"
+	"github.com/NexGenDisk/t/internal/ftp"
+	"github.com/NexGenDisk/t/internal/http"
+	"github.com/NexGenDisk/t/pkg/ddrv"
 )
 
 // Config represents the entire configuration as defined in the YAML file.
