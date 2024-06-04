@@ -97,7 +97,11 @@ func main() {
 	// Create and start http server
 	go func() { errCh <- http.Serv(driver, &config.Frontend.HTTP) }()
 	// Create and start webdav server
-	go func() { errCh <- webdav.Serv(driver, &config.Frontend.WEBDAV) }()
+	go func() {
+			webdavServer := webdav.New(fs)
+			log.Printf("ddrv: starting WEBDAV server on : %s", config.WDAddr())
+			errCh <- webdavServer.ListenAndServe()
+		}()
 
 	if err = <-errCh; err != nil {
 		log.Fatal().Str("c", "main").Err(err).Msgf("ddrv crashed")
