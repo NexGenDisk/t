@@ -7,7 +7,7 @@ import (
 	"github.com/spf13/afero"
 	"golang.org/x/net/webdav"
 
-	"github.com/NexGenDisk/t/internal/config"
+	"github.com/NexGenDisk/t/internal/filesystem"
 	"github.com/NexGenDisk/t/pkg/requestip"
 )
 
