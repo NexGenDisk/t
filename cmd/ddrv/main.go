@@ -16,6 +16,7 @@ import (
 	"github.com/NexGenDisk/t/internal/dataprovider/postgres"
 	"github.com/NexGenDisk/t/internal/ftp"
 	"github.com/NexGenDisk/t/internal/http"
+	"github.com/NexGenDisk/t/internal/webdav"
 	"github.com/NexGenDisk/t/pkg/ddrv"
 )
 
@@ -36,6 +37,7 @@ type Config struct {
 
 	Frontend struct {
 		FTP  ftp.Config  `mapstructure:"ftp"`
+		WEBDAV webdav.Config `mapstructure:"webdav"`
 		HTTP http.Config `mapstructure:"http"`
 	} `mapstructure:"frontend"`
 }
@@ -94,6 +96,8 @@ func main() {
 	go func() { errCh <- ftp.Serv(driver, &config.Frontend.FTP) }()
 	// Create and start http server
 	go func() { errCh <- http.Serv(driver, &config.Frontend.HTTP) }()
+	// Create and start webdav server
+	go func() { errCh <- webdav.Serv(driver, &config.Frontend.WEBDAV) }()
 
 	if err = <-errCh; err != nil {
 		log.Fatal().Str("c", "main").Err(err).Msgf("ddrv crashed")
@@ -127,6 +131,10 @@ func initConfig() {
 	_ = viper.BindEnv("frontend.ftp.username", "FTP_USERNAME")
 	_ = viper.BindEnv("frontend.ftp.password", "FTP_PASSWORD")
 	_ = viper.BindEnv("frontend.ftp.async_write", "FTP_ASYNC_WRITE")
+	_ = viper.BindEnv("frontend.ftp.addr", "WEBDAV_ADDR")
+	_ = viper.BindEnv("frontend.ftp.username", "WEBDAV_USERNAME")
+	_ = viper.BindEnv("frontend.ftp.password", "WEBDAV_PASSWORD")
+	_ = viper.BindEnv("frontend.ftp.async_write", "WEBDAV_ASYNC_WRITE")
 	_ = viper.BindEnv("frontend.http.addr", "HTTP_ADDR")
 	_ = viper.BindEnv("frontend.http.username", "HTTP_USERNAME")
 	_ = viper.BindEnv("frontend.http.password", "HTTP_PASSWORD")
