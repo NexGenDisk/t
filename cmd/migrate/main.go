@@ -12,7 +12,7 @@ import (
 	zl "github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 
-	"github.com/forscht/ddrv/pkg/ddrv"
+	"github.com/NexGenDisk/t/pkg/ddrv"
 )
 
 func main() {
